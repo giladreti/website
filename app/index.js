@@ -59,7 +59,7 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-app.use(express.static('public'));
+// app.use(express.static('public'));
 
 app.get('/', function (req, res) {
   res.sendFile(path.resolve(__dirname + '/../index.html'));
