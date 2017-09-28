@@ -1,9 +1,9 @@
-var app = require('express')();
-var express = require('express');
+const app = require('express')();
+const express = require('express');
 var http = require('http').Server(app);
-var io = require('socket.io')(http);
+const io = require('socket.io')(http);
 var port = process.env.PORT || 3000;
-var path = require('path');
+const path = require('path');
 var Users = [];
 var waiting = false;
 var games = [];
@@ -58,6 +58,8 @@ function getRandomInt(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min;
 }
+
+app.use(express.static('public'));
 
 app.get('/', function (req, res) {
   res.sendFile(path.resolve(__dirname + '/../index.html'));
