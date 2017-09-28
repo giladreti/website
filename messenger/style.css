@@ -109,22 +109,22 @@ body {
   font-size: 2em;
 }
 
-@media(max-width: 980px) {
+@media(max-width: 980px){
   #login h1 {
-    font-size: 10em;
-    padding-top: 5vh;
+    font-size: 120px;
+    padding-top: 50px;
   }
   #loginbutton {
-    height: 4em;
-    font-size: 5em;
+    height: 180px;
+    font-size: 60px;
     margin-top: 10px;
   }
   #username {
-    margin-top: 5vh;
-    height: 4em;
-    font-size: 5em;
+    margin-top: 70px;
+    height: 180px;
+    font-size: 55px;
   }
   #username[type=text] {
-    padding-left: 0.7em;
+    padding-left: 40px;
   }
 }
