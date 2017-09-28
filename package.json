@@ -1,0 +1,17 @@
+{
+  "name": "html",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gilad Reti",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.5",
+    "http": "0.0.0",
+    "path": "^0.12.7",
+    "socket.io": "^2.0.3"
+  }
+}
