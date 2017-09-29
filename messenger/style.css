@@ -108,6 +108,9 @@ body {
   height: 3.5em;
   font-size: 2em;
 }
+.form-control-feedback{
+  font-size: 1.5em;
+}
 
 @media(max-width: 980px){
   #login h1 {

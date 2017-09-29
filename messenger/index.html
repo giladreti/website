@@ -108,7 +108,7 @@
       socket.on('reconnecting', function (number) {
         if ($('#login').hasClass('hide')) {
           $('#loginform .form-group').append($(
-            '<div class="form-control-feedback center m-2"  style="font-size:1.5em;">').text(
+            '<div class="form-control-feedback center m-2">').text(
             'Sorry, you weren\'t active for a long time, you should reconnect.'));
         }
         $('#login').removeClass('hide');
@@ -127,7 +127,7 @@
         if (!$('#loginform .form-group').hasClass('has-danger')) {
           $('#loginform .form-group').addClass('has-danger')
             .append($(
-              '<div class="form-control-feedback center m-2 animated fadeIn"  style="font-size:1.5em; animation-duration:0.5s;">'
+              '<div class="form-control-feedback center m-2 animated fadeIn"  style=" animation-duration:0.5s;">'
             ).text('Sorry, that username is taken.'));
           $('#loginform .form-group .form-control').addClass('form-control-danger animated fadeIn').css(
             'animation-duration', '0.25s');
