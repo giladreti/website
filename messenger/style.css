@@ -127,4 +127,7 @@ body {
   #username[type=text] {
     padding-left: 40px;
   }
+  .form-control-feedback{
+    font-size: 30px;
+  }
 }
