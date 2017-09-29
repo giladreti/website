@@ -141,11 +141,11 @@
 
       socket.on('welcome', function (connected) {
         if (connected.length == 0) {
-          message = 'welcome!';
+          message = 'Welcome!';
         } else if (connected.length == 1) {
-          message = 'welcome! ' + connected.toString() + ' is connected';
+          message = 'Welcome! ' + connected.toString() + ' is connected';
         } else {
-          message = 'welcome! ' + connected.toString() + ' are connected';
+          message = 'Welcome! ' + connected.toString() + ' are connected';
         }
         $('#messages').append($('<li id="welcome" class="center">').text(message).css({
           'font-size': 0.04 * windowHeight,
