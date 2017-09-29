@@ -47,7 +47,7 @@
     $(function () {
       const socket = io('/chat');
       var username;
-      var windowHeight = $(window).height();
+      var windowHeight = $(window).innerHeight();
 
       function addZero(i) {
         if (i < 10) {
@@ -58,15 +58,15 @@
 
       $("#sendbutton").height(0.12 * windowHeight);
       $("#sendbutton").width(0.12 * windowHeight);
-      $("#m").width($(window).width() - 0.17 * windowHeight);
+      $("#m").width($(window).innerWidth() - 0.17 * windowHeight);
       $("#m").height(0.12 * windowHeight).css('text-indent', 0.045 * windowHeight);
       $('#m[type="text"]').css("font-size", 0.03 * windowHeight);
       $('.fa-paper-plane').css("font-size", 0.045 * windowHeight);
       $('#messages').css("height",0.86 * windowHeight);
 
       document.getElementsByTagName("BODY")[0].onresize = function () {
-        $("#m").width($(window).width() - 0.17 * windowHeight);
-        $('#messages').css("height",$(window).height()-$('#m').height()-5);
+        $("#m").width($(window).innerWidth() - 0.17 * windowHeight);
+        $('#messages').css("height",$(window).innerHeight()-$('#m').height()-5);
         let messages = document.getElementById("messages")
         messages.scrollTop = messages.scrollHeight;
       };
