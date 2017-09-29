@@ -57,7 +57,7 @@ function startSketch() {
       finished = false;
       turn = 0
       last_attack = -1;
-      win_counter = 1;
+      win_counter = 17;
 
       board_width = 2 * wHeight / 3
       board_start_x = (wWidth - board_width) / 2
