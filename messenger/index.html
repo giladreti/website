@@ -66,7 +66,7 @@
 
       document.getElementsByTagName("BODY")[0].onresize = function () {
         $("#m").width($(window).innerWidth() - 0.17 * windowHeight);
-        $('#messages').height($(window).innerHeight()-$('#m').height());
+        $('#messages').height($(window).innerHeight()-$('#m').height()-10);
         let messages = document.getElementById("messages")
         messages.scrollTop = messages.scrollHeight;
       };
