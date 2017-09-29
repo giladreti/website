@@ -66,7 +66,7 @@
 
       document.getElementsByTagName("BODY")[0].onresize = function () {
         $("#m").width($(window).width() - 0.17 * windowHeight);
-        $('#messages').css("max-height",0.99*$(window).height()-$('#m').height());
+        $('#messages').css("max-height",$(window).height()-$('#m').height()-5);
         let messages = document.getElementById("messages")
         messages.scrollTop = messages.scrollHeight;
       };
@@ -120,7 +120,7 @@
         $('#username').val('');
         $('#login').addClass('hide');
         $('#messenger').removeClass('hide');
-        $('#loginform .form-group .form-control').removeClass('form-control-danger');
+        $('#loginform.form-group.form-control').removeClass('form-control-danger');
       });
 
       socket.on('usernameErr', function () {
