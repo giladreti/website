@@ -131,6 +131,10 @@ body {
     padding-left: 40px;
   }
   .form-control-feedback{
-    font-size: 30px;
+    font-size: 40px;
+  }
+  .form-control-danger{
+    background-size: 60px 60px;
+    background-position-x: right 30px;
   }
 }
