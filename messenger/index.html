@@ -62,11 +62,11 @@
       $("#m").height(0.12 * windowHeight).css('text-indent', 0.045 * windowHeight);
       $('#m[type=\"text\"]').css("font-size", 0.03 * windowHeight);
       $('.fa-paper-plane').css("font-size", 0.045 * windowHeight);
-      $('#messages').css("max-height",0.86 * windowHeight);
+      $('#messages').css("height",0.86 * windowHeight);
 
       document.getElementsByTagName("BODY")[0].onresize = function () {
         $("#m").width($(window).width() - 0.17 * windowHeight);
-        $('#messages').css("max-height",$(window).height()-$('#m').height()-5);
+        $('#messages').css("height",$(window).height()-$('#m').height()-5);
         let messages = document.getElementById("messages")
         messages.scrollTop = messages.scrollHeight;
       };
