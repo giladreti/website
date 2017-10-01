@@ -122,6 +122,7 @@ function startSketch() {
         p.push()
         p.fill(103, 250, 255)
         p.textSize(48)
+        p.textAlign(CENTER);
         p.text('YOU WON!', board_start_x, board_start_y, board_width, board_width)
         p.pop()
         replay_button.display();
@@ -135,7 +136,8 @@ function startSketch() {
         p.push()
         p.fill(103, 250, 255)
         p.textSize(48)
-        p.text('YOU LOSED!', board_start_x, board_start_y, board_width, board_width)
+        p.textAlign(CENTER);
+        p.text('YOU LOST!', board_start_x, board_start_y, board_width, board_width)
         p.pop()
         replay_button.display();
         if (replay_button.is_pressed()) {
