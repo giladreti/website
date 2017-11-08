@@ -140,6 +140,8 @@ app.get('/style.css', function (req, res) {
 
 app.use('/pacman', express.static(__dirname+'/../pacman'));
 
+app.use('/networks', express.static(__dirname+'/../networks'))
+
 app.use('/img', express.static(__dirname + '/../img'));
 
 app.use('/messenger', express.static(__dirname + '/../messenger'));
