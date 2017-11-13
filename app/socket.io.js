@@ -1,5 +1,4 @@
-const app = require('express')();
-var http = require('http').Server(app);
+import http from './index';
 const io = require('socket.io')(http);
 var Users = [];
 var waiting = false;
