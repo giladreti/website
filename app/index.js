@@ -142,7 +142,7 @@ app.use('/pacman', express.static(__dirname+'/../pacman'));
 
 app.use('/networks', express.static(__dirname+'/../networks'))
 
-app.use('/img', express.static(__dirname + '/../img'));
+app.use('/assets', express.static(__dirname + '/../assets'));
 
 app.use('/messenger', express.static(__dirname + '/../messenger'));
 
