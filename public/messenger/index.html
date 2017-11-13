@@ -1,0 +1,193 @@
+<!doctype html>
+<html style="overflow:hidden">
+
+<head>
+  <meta name="viewport" content="user-scalable=0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <title>Socket.IO chat</title>
+</head>
+
+<body>
+  <div id="login" class="container" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%); width: fit-content;">
+    <div class="card animated bounceIn" style="animation-duration: 0.75s; width: fit-content;">
+      <div class="card-block">
+        <form id="loginform">
+          <div class="form-group" style="width:fit-content">
+            <h1 class="text-center m-4">Please enter your username:</h1>
+            <input id="username" type="text" class="form-control" id="username" placeholder="Username" 
+            />
+            <button id="loginbutton" class="btn btn-primary">Log In</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="messenger" class="hide">
+    <ul id="messages"></ul>
+    <form id="messageform">
+      <div class="form-group">
+        <input id="m" type="text" autocomplete="off" class="form-control" placeholder="Enter message">
+        <button id="sendbutton" class="btn btn-default btn-circle btn-xl"><i class="fa fa-paper-plane" style="padding-right:0.5vh;"></i></button>
+      </div>
+    </form>
+  </div>
+  <script>
+    $(function () {
+      const socket = io('/chat');
+      var username;
+      var windowHeight = $(window).innerHeight();
+
+      function addZero(i) {
+        if (i < 10) {
+          i = "0" + i;
+        }
+        return i;
+      }
+
+      $("#sendbutton").height(0.12 * windowHeight);
+      $("#sendbutton").width(0.12 * windowHeight);
+      $("#m").width($(window).innerWidth() - 0.17 * windowHeight);
+      $("#m").height(0.12 * windowHeight).css('text-indent', 0.045 * windowHeight);
+      $('#m[type="text"]').css("font-size", 0.03 * windowHeight);
+      $('.fa-paper-plane').css("font-size", 0.045 * windowHeight);
+      $('#messages').height(0.86 * windowHeight);
+
+      document.getElementsByTagName("BODY")[0].onresize = function () {
+        $("#m").width($(window).innerWidth() - 0.17 * windowHeight);
+        $('#messages').height($(window).innerHeight()-$('#m').height()-20);
+        let messages = document.getElementById("messages")
+        messages.scrollTop = messages.scrollHeight;
+      };
+
+      $('#messageform').submit(function () {
+        let message = $('#m').val()
+        if (message == '') {
+          return false;
+        }
+        socket.emit('chat message', {
+          msg: message,
+          id: $('#messages li').length
+        });
+        let d = new Date();
+        let time = addZero(d.getHours()) + ':' + addZero(d.getMinutes());
+        $('#messages').append($('<li class="animated fadeIn own">').append(message).css({
+          'font-size': 0.04 * windowHeight,
+          'padding-top': 0.02 * windowHeight,
+          'padding-bottom': 0.025 * windowHeight
+        }).append($('<span style="font-size: 0.5em; left: 2.3vw; position:absolute; bottom:2px;">').append(
+          $(
+            '<i class="fa fa-clock-o" aria-hidden="true">')).append(time)));
+        let messages = document.getElementById("messages")
+        messages.scrollTop = messages.scrollHeight;
+        $('#m').val('');
+        return false;
+      });
+
+
+      $('#loginform').submit(function () {
+        username = $('#username').val();
+        if (username == '') {
+          return false;
+        }
+        socket.emit('login', username);
+        return false;
+      });
+
+      socket.on('reconnecting', function (number) {
+        if ($('#login').hasClass('hide')) {
+          $('#loginform .form-group').append($(
+            '<div class="form-control-feedback center m-2">').text(
+            'Sorry, you weren\'t active for a long time, you should reconnect.'));
+        }
+        $('#login').removeClass('hide');
+        $('#messenger').addClass('hide');
+      });
+
+      socket.on('usernameOk', function () {
+        $('#loginform .form-group .form-control-feedback').remove();
+        $('#username').val('');
+        $('#login').addClass('hide');
+        $('#messenger').removeClass('hide');
+        $('#loginform.form-group.form-control').removeClass('form-control-danger');
+      });
+
+      socket.on('usernameErr', function () {
+        if (!$('#loginform .form-group').hasClass('has-danger')) {
+          $('#loginform .form-group').addClass('has-danger')
+            .append($(
+              '<div class="form-control-feedback center m-2 animated fadeIn"  style=" animation-duration:0.5s;">'
+            ).text('Sorry, that username is taken.'));
+          $('#loginform .form-group .form-control').addClass('form-control-danger animated fadeIn').css(
+            'animation-duration', '0.25s');
+        } else {
+          $('.form-control-feedback, .form-control-danger').addClass('animated fadeIn');
+        }
+        $('.form-control-feedback, .form-control-danger').one('animationend', function () {
+          $('.form-control-feedback, .form-control-danger').removeClass('animated fadeIn')
+        })
+      });
+
+      socket.on('welcome', function (connected) {
+        if (connected.length == 0) {
+          message = 'Welcome!';
+        } else if (connected.length == 1) {
+          message = 'Welcome! ' + connected.toString() + ' is connected';
+        } else {
+          message = 'Welcome! ' + connected.toString() + ' are connected';
+        }
+        $('#messages').append($('<li id="welcome" class="center">').text(message).css({
+          'font-size': 0.04 * windowHeight,
+          'padding-top': 0.02 * windowHeight,
+          'padding-bottom': 0.02 * windowHeight
+        }));
+      });
+
+      socket.on('ok', function (id) {
+        $('#messages li:eq(' + id + ') i').removeClass('fa-clock-o').addClass('fa-check-circle-o');
+      });
+
+      socket.on('chat message', function (msg) {
+        $('#messages').append($('<li class="animated fadeIn other">').append($('<span style=\"color: ' + msg.color +
+            '\">').text(msg.user))
+          .append(': ' + msg.msg).css({
+            'font-size': 0.04 * windowHeight,
+            'padding-top': 0.02 * windowHeight,
+            'padding-bottom': 0.025 * windowHeight
+          }).append($('<span style="position:absolute; font-size:0.5em; bottom:2px; right:1.8vw">').text(msg.time))
+        );
+        let messages = document.getElementById("messages")
+        messages.scrollTop = messages.scrollHeight;
+      });
+
+      socket.on('user connected', function (msg) {
+        $('#messages').append($('<li class="center" style="line-height:8vh;">').append($('<span style="color: ' +
+          msg.color + '; margin:4px 0; ">').text(msg.user)).append(' connected').css({
+          'font-size': 0.04 * windowHeight
+        }));
+        window.scrollTo(0, document.body.scrollHeight);
+      });
+
+      socket.on('user disconnected', function (msg) {
+        $('#messages').append($('<li class="center" style="line-height:8vh">').append($('<span style="color: ' +
+          msg.color + '; margin:4px 0;">').text(msg.user)).append(' disconnected').css({
+          'font-size': 0.04 * windowHeight
+        }));
+        window.scrollTo(0, document.body.scrollHeight);
+      });
+    });
+  </script>
+</body>
+
+</html>
