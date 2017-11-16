@@ -157,7 +157,7 @@ function startSketch() {
         p.push()
         p.fill(103, 250, 255)
         p.textSize(48)
-        p.text('Waiting for opponent...', board_start_x, board_start_y, board_width, board_width)
+        p.text('Waiting for an opponent...', board_start_x, board_start_y, board_width, board_width)
         p.pop()
       }
     }
