@@ -44,8 +44,8 @@ function startSketch() {
 
 
     p.preload = function () {
-      boom = p.loadSound('../img/battleships/Bomb.mp3');
-      splash = p.loadSound('../img/battleships/Splash.mp3');
+      boom = p.loadSound('..assets/sound/battleships/Bomb.mps');
+      splash = p.loadSound('../assets/sound/battleships/Splash.mp3');
     }
     p.setup = function () {
       game_started = false
