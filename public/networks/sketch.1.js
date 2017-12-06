@@ -52,28 +52,26 @@ function draw() {
 function addNode(Nodes, Edges) {
   node = new Node(randomGaussian(canvas.width / 2, canvas.width / 7), randomGaussian(canvas.height / 2.5, canvas.height / 8));
   N += 1;
-  while(node.size!=m){
-    let connected = false
-    ,sum = 0, random = Math.random()*(2*N-1)*m;
-    for(i in Nodes){
-      v2 = Nodes[i];
-      if (random <= sum) {
-        Edges.push(new Edge(node, v2));
-        node.size += 1;
-        v2.size += 1;
-        connected = true;
-        break;
-      }
-      sum += v2.size;
-    }
-    if(!connected){
-      Edges.push(new Edge(node, node));
-      node.size += 1;
-    }
-  }
+  toAdd = [];
+  node.size = m;
+  counter = 0;
   node.x += Math.random() * 10;
   node.y += Math.random() * 10;
-  Nodes.push(node)
+  Nodes.push(node);
+  while(counter++ != m){
+    let connected = false
+    ,sum = 0
+    ,random = Math.random() * (2 * N + 1) * m;
+    for(v2 of Nodes){
+      sum += v2.size
+      if (random <= sum) {
+        Edges.push(new Edge(node, v2));
+        toAdd.push(v2)
+        break;
+      }
+    }
+  }
+  for(v2 of toAdd) v2.size+=1
 }
 
 function removeNode(Nodes, Edges) {
