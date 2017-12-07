@@ -6,10 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Numbers</title>
     <style>
-        .numbers, .result{
+        .numbers{
             font-size: 2ch;
             text-align: center;
-            width: 80px;
+            width: 20%;
+            height: 50px;
+        }
+        .result{
+            font-size: 2ch;
+            text-align: center;
+            width: 80%;
             height: 50px;
         }
     </style>
@@ -20,23 +26,24 @@
     <script src="./index.js"></script>
 </head>
 <body>
-    <div class="container">
+    <div class="container text-center">
         <div class="row">
-            <div class="col-sm-8">
-            <h1>Enter numbers</h1>
-                <input id="n1" class="numbers" type="number" onchange="onChange()">
-                <input id="n2" class="numbers" type="number" onchange="onChange()">
-                <input id="n3" class="numbers" type="number" onchange="onChange()">
-                <input id="n4" class="numbers" type="number" onchange="onChange()">
+            <div class="col-sm-8" style="margin-top: 30px;">
+            <h3>Enter numbers</h3>
+            <div style="margin-top: 20px">
+                <input id="n1" value="0" class="numbers" type="number" onchange="onChange()">
+                <input id="n2" value="0" class="numbers" type="number" onchange="onChange()">
+                <input id="n3" value="0" class="numbers" type="number" onchange="onChange()">
+                <input id="n4" value="0" class="numbers" type="number" onchange="onChange()">
             </div>
-            <div class="col-sm-4">
-                <h1>Enter result</h1>
-                <input id="result" class="result" type="number" onchange="onChange()">
+            </div>
+            <div class="col-sm-4" style="margin-top: 30px">
+                <h3>Enter result</h3>
+                <input id="result" value="0" class="result" type="number" onchange="onChange()" style="margin-top:10px">
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-4">
-                    <h3 id="answer"></h3>
+            <div style="margin-top: 30px; font-size: 3ch">
+                <p>Solution: <span id="answer">(((0+0)+0)+0)</span></p> 
             </div>
         </div>
     </div>
