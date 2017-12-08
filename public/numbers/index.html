@@ -11,6 +11,7 @@
             text-align: center;
             width: 20%;
             height: 50px;
+            margin: 3px;
         }
         .result{
             font-size: 2ch;
@@ -27,14 +28,19 @@
 </head>
 <body>
     <div class="container text-center">
+        <div class="row" style="margin-top: 30px">
+            <div class="col-sm-12">
+                <h3>Enter the number of numbers</h3>
+                <div style="margin-top: 20px">
+                    <input id="num" min="1" max="6" value="4" class="numbers" type="number" onchange="updateInputs()">
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-sm-8" style="margin-top: 30px;">
             <h3>Enter numbers</h3>
-            <div style="margin-top: 20px">
-                <input id="n1" value="0" class="numbers" type="number" onchange="onChange()">
-                <input id="n2" value="0" class="numbers" type="number" onchange="onChange()">
-                <input id="n3" value="0" class="numbers" type="number" onchange="onChange()">
-                <input id="n4" value="0" class="numbers" type="number" onchange="onChange()">
+            <div style="margin-top: 20px" id="inputs">
+                <input value="0" class="numbers numInput" type="number" onchange="onChange()"><input value="0" class="numbers numInput" type="number" onchange="onChange()"><input value="0" class="numbers numInput" type="number" onchange="onChange()"><input value="0" class="numbers numInput" type="number" onchange="onChange()">
             </div>
             </div>
             <div class="col-sm-4" style="margin-top: 30px">

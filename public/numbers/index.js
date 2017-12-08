@@ -46,12 +46,20 @@ to_string = exp => {
 
 onChange = () => {
     answer = document.getElementById("answer")
-    result = play([
-        parseInt(document.getElementById("n1").value) || 0,
-        parseInt(document.getElementById("n2").value) || 0,
-        parseInt(document.getElementById("n3").value) || 0,
-        parseInt(document.getElementById("n4").value) || 0
-    ], parseInt(document.getElementById("result").value) || 0)
+    let numbers = []
+    for(item of document.getElementsByClassName("numInput")){
+        numbers.push(parseFloat(item.value) || 0)
+    }
+    result = play(numbers, parseFloat(document.getElementById("result").value) || 0)
     if(result) answer.innerHTML = to_string(result)
     else answer.innerHTML = "no result"
+}
+
+updateInputs = () => {
+    num = document.getElementById("num").value
+    inputs = document.getElementById("inputs")
+    inputs.innerHTML = ''
+    for (let i = 0; i < num; i++) {
+        inputs.innerHTML += '<input value="0" class="numbers numInput" type="number" onchange="onChange()">'
+    }
 }
