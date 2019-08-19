@@ -15,7 +15,7 @@ value = n => {
 }
 
 play = (values, n) => {
-    if(values.length === 1 && value(values[0]) == n){
+    if(values.length === 1 && Math.abs(value(values[0]) - n)<0.000001){
         return values[0]
     }
 
